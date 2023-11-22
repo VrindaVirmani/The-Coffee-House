@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <link rel="stylesheet" href="coffeehouse.css"> -->
+    <title>Checkout - The Coffee House</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            background-color: black;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        td,
+        th {
+            border: 1px solid white;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #dead7f;
+        }
+
+        .apple {
+            width: 150px;
+            height: 3em;
+            border-radius: 30em;
+            font-size: 15px;
+            font-family: inherit;
+            border: 2px solid black;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        .apple::before {
+            content: '';
+            width: 0;
+            height: 3em;
+            border-radius: 4px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(to right, #dead7f 0%, #c58d58 100%);
+            /* transition: .1s ease; */
+            display: block;
+            z-index: -1;
+        }
+
+        .apple:hover::before {
+            width: 150px;
+        }
+
+
+        @media(max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            table,
+            td,
+            th {
+                display: block;
+            }
+        }
+
+        .CheckoutTable {
+            color: black;
+            border-bottom: 3px solid #dead7f;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>CHECKOUT</h1>
+
+        <table class="CheckoutTable">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Amount</th>
+            </tr>
+
+        </table>
+
+        <section class="customize" id="customize">
+            <h1 class="heading">Order <span>Customization</span></h1>
+            <div class="row">
+
+                <form action="">
+                    <h3>Want something special?</h3>
+
+                    <textarea name="" placeholder="Exactly How you like it" class="inputBox" id="" cols="111"
+                        rows="15"></textarea>
+                    <br>
+                    <!-- <button type="submit" class="btn" onclick="dosomething()">Submit</button> -->
+                </form>
+            </div>
+        </section>
+
+        <button type="submit" class="apple" onclick=dosomething()>PAY NOW</button>
+
+    </div>
+    <script>
+        // Retrieve cart data from sessionStorage
+        let cartData = sessionStorage.getItem('cart');
+
+        // Parse cart data into an array of objects
+        let cartItems = cartData ? JSON.parse(cartData) : [];
+
+        // Reference to the checkout table
+        let checkoutTable = document.getElementById('checkoutTable');
+
+        // Populate the checkout table with cart items
+        cartItems.forEach(item => {
+            let row = checkoutTable.insertRow(-1);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
+
+            cell1.innerHTML = item.productname;
+            cell2.innerHTML = "1"; // For simplicity, assuming quantity is 1
+            cell3.innerHTML = `₹${parseFloat(item.price).toFixed(2)}`;
+            cell4.innerHTML = `₹${parseFloat(item.price).toFixed(2)}`;
+        });
+    </script>
+
+</body>
+
+</html>
